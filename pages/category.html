@@ -1,0 +1,49 @@
+<div class="cc__category___panel">
+    <div class="cc__category___products">
+        <div class="cc__category___products_header">
+            <h1>
+                <%= cc.category.name %>
+            </h1>
+        </div>
+
+        <div class="cc__category___products_grid">
+            <% cc.packages.data.forEach((package, index)=> { %>
+                <%~ include('components/package', {package, ...cc}) %>
+                    <% }) %>
+        </div>
+
+        <div class="cc_category___pagination">
+            <% const meta=cc.packages.meta %>
+                <% const items=[1] %>
+                    <% let r=2 %>
+                        <% let r1=meta.current_page - r %>
+                            <% let r2=meta.current_page + r %>
+                                <% for (let i=r1> 2 ? r1 : 2; i <= Math.min(meta.last_page, r2); i++) items.push(i) %>
+                                        <% if (r2 + 1 < meta.last_page) items.push('…') %>
+                                            <% if (r2 < meta.last_page) items.push(meta.last_page) %>
+
+                                                <a class="base_button"
+                                                    style="border-top-right-radius: 0; border-bottom-right-radius: 0;"
+                                                    href="<%= cc.dist_url + `/category/${cc.category.slug}` + meta.previous_page_url %>"
+                                                    data-disabled="<%= !meta.previous_page_url ? 'true' : 'false' %>">
+                                                    <i class="fa-solid fa-chevron-left"></i>
+                                                </a>
+
+                                                <% items.forEach((page)=> { %>
+                                                    <a class="base_button"
+                                                        href="<%= cc.dist_url + `/category/${cc.category.slug}/?page=${page}` %>"
+                                                        style="border-left: none; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0;"
+                                                        data-current="<%= meta.current_page === page ? 'true' : 'false' %>">
+                                                        <%= page %>
+                                                    </a>
+                                                    <% }) %>
+
+                                                        <a class="base_button" aria-disabled="true"
+                                                            href="<%= cc.dist_url + `/category/${cc.category.slug}` + meta.next_page_url %>"
+                                                            style="border-left: none; border-top-left-radius: 0; border-bottom-left-radius: 0;"
+                                                            data-disabled="<%= !meta.next_page_url ? 'true' : 'false' %>">
+                                                            <i class="fa-solid fa-chevron-right"></i>
+                                                        </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+<header>
+    <nav>
+        <div class="container">
+            <ul>
+                <li>
+                    <div class="cc__nav_links">
+                        <a class="animate <%= cc.current_page === 'index' && 'active' %>"
+                            href="<%= cc.dist_url %>/">INÍCIO</a>
+                        <a href="/category/carros"
+                            class="animate <%= cc.current_page === 'category/carros' && 'active' %>"
+                            href="<%= cc.dist_url %>/">CARROS</a>
+                        <a href="/category/motos"
+                            class="animate <%= cc.current_page === 'category/motos' && 'active' %>"
+                            href="<%= cc.dist_url %>/">MOTOS</a>
+                        <a href="/category/aereo"
+                            class="animate <%= cc.current_page === 'category/aereo' && 'active' %>"
+                            href="<%= cc.dist_url %>/">AEREO</a>
+                        <a href="/category/premium"
+                            class="animate <%= cc.current_page === 'category/premium' && 'active' %>"
+                            href="<%= cc.dist_url %>/">PREMIUM</a>
+                        <a href="/category/mansoes"
+                            class="animate <%= cc.current_page === 'category/mansoes' && 'active' %>"
+                            href="<%= cc.dist_url %>/">MANSÕES</a>
+                        <a href="/category/organizacao"
+                            class="animate <%= cc.current_page === 'category/organizacao' && 'active' %>"
+                            href="<%= cc.dist_url %>/">ORGANIZAÇÃO</a>
+                        <a href="/category/outros"
+                            class="animate <%= cc.current_page === 'category/outros' && 'active' %>"
+                            href="<%= cc.dist_url %>/">OUTROS</a>
+
+                        <% if (cc.theme.socials.discord !==null) { %> <a class="animate"
+                                href="<%= cc.theme.socials.discord %>">DISCORD</a>
+                            <% } %>
+                                <% if (cc.theme.socials.twitter !==null) { %> <a class="animate"
+                                        href="<%= cc.theme.socials.twitter %>">TWITTER</a>
+                                    <% } %>
+                                        <% if (cc.theme.socials.instagram !==null) { %> <a class="animate"
+                                                href="<%= cc.theme.socials.instagram %>">INSTAGRAM</a>
+                                            <% } %>
+                                                <% if (cc.theme.socials.youtube !==null) { %> <a class="animate"
+                                                        href="<%= cc.theme.socials.youtube %>">YOUTUBE</a>
+                                                    <% } %>
+                                                        <% if (cc.theme.socials.facebook !==null) { %> <a
+                                                                class="animate"
+                                                                href="<%= cc.theme.socials.facebook %>">FACEBOOK</a>
+                                                            <% } %>
+                                                                <% if (cc.theme.socials.tiktok !==null) { %> <a
+                                                                        class="animate"
+                                                                        href="<%= cc.theme.socials.tiktok %>">TIKTOK</a>
+                                                                    <% } %>
+                    </div>
+
+                    <div class="cc__nav_buttons">
+                        <a href="#store" class="cc__header___store_btn">LOJA</a>
+
+                        <a href="<%= cc.dist_url %>/cart"
+                            class="animate <%= cc.current_page === 'cart' ? 'active' : ''%>">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            CARRINHO
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="cc__header___hero container"
+        style="<%= cc.theme.background && '--bg-img: url(' + cc.theme.background + ')'%>">
+        <div class="cc__header___hero__wrapper">
+            <div class="cc__header___hero__widget">
+                <i class="fa-solid fa-fire-flame-curved"></i>
+                <% const widget=cc.widgets.find((widget)=> widget.type === 'CONNECTION_BOARD') %>
+                    <% if (widget && widget.data) { %>
+                        <a href="fivem://connect/<%= widget.data %>">
+                            <% } else { %>
+                                <a>
+                                    <% } %>
+                                        <h1>CONECTAR-SE AO FIVEM</h1>
+                                        <p>Clique para jogar</p>
+                                </a>
+            </div>
+
+            <div class="cc__header___hero__logo 
+        <%= cc.theme.logo_position === 'START' ? 
+        'left' : cc.theme.logo_position === 'END' ? 
+        'right' : ''%>">
+                <a href="<%= cc.dist_url %>/">
+                    <% if (cc.theme.logo) { %>
+                        <img src="<%= cc.theme.logo %>" />
+                        <% } else { %>
+                            <h1>
+                                <%= cc.store.name %>
+                            </h1>
+                            <% } %>
+                </a>
+            </div>
+
+            <div class="cc__header___hero__widget">
+
+                <% if (cc.theme.socials.discord) { %>
+                    <a href="<%= cc.theme.socials.discord %>">
+                        <% } else { %>
+                            <a>
+                                <% } %>
+                                    <h1>ENTRAR NO DISCORD</h1>
+                                    <p>Participe da comunidade</p>
+                            </a>
+
+                            <i class="fa-brands fa-discord right"></i>
+            </div>
+        </div>
+    </div>
+</header>

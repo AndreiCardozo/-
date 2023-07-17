@@ -1,0 +1,25 @@
+footer {
+    background-color: #12161e;
+
+    .cc__footer___wrapper {
+        display: flex;
+        font-family: 'Poppins', sans-serif;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 64px;
+        padding: 24px 0;
+
+        img {
+            margin-right: 8px;
+        }
+
+        p {
+            color: #656565;
+        }
+
+        .cc__footer___left_element {
+            display: flex;
+            align-items: center;
+        }
+    }
+}

@@ -1,0 +1,45 @@
+<div class="modal fade" id="cart-package-options-modal-<%= cc.package.meta.id %>" tabindex="-1"
+    aria-labelledby="package_options_modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Opções de <%= cc.package.meta.name %>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar" />
+            </div>
+
+            <div class="modal-body">
+                <div class="cc__package___options">
+                    <% cc.package.meta.variables.forEach((variable, index)=> { %>
+                        <% const selected_option=cc.package.options.find((option)=> option.variable.id === variable.id)
+                            %>
+                            <div>
+                                <label for="<%= variable.name %>">
+                                    <%= variable.description %>:
+                                </label>
+
+                                <% if (variable.type==='SELECT' ) { %>
+                                    <select autocomplete="off" id="<%= variable.name %>">
+                                        <% variable.options.forEach((option, index)=> { %>
+                                            <option <%=selected_option.variable_option_id===option.id && 'selected' %>
+                                                value="<%= option.id %>"><%= option.name %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                    <% } else { %>
+                                        <input id="<%= variable.name %>"
+                                            type="<%= variable.type === 'TEXT' ? 'text' : 'number' %>"
+                                            value="<%= selected_option.value %>">
+                                        <% } %>
+                            </div>
+                            <% }) %>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-outline" data-bs-dismiss="modal">Fechar</button>
+                <button id="<%= cc.package.meta.id %>" class="btn-primary update-options">Atualizar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div>
+    <div class="cc__widget___product">
+        <% if (cc.widget.package.image) { %>
+            <img src="<%= cc.widget.package.image %>" width="165" />
+            <% } else { %>
+                <img src="<%= cc.cdn_url %>/public/no-picture.png" width="150px" />
+                <% } %>
+
+                    <h2>
+                        <%= cc.widget.package.name %>
+                    </h2>
+
+                    <p>
+                        por
+                        <strong style="color: <%= cc.theme.primary_color %>;">
+                            <%= cc.widget.package.price_display %>
+                        </strong>
+                    </p>
+
+                    <button data-bs-toggle="modal" data-bs-target="#package-modal-<%= cc.widget.package.id %>">
+                        <strong>COMPRAR!</strong>
+                    </button>
+    </div>
+
+    <%~ include('components/package_modal', {package: cc.widget.package, ...cc}) %>
+</div>

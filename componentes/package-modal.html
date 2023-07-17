@@ -1,0 +1,42 @@
+<div class="modal fade" id="package-modal-<%= cc.package.id %>" tabindex="-1" aria-labelledby="package_modal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <%= cc.package.name %>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <% if (cc.package.description) { %>
+                    <%~ cc.package.description %>
+                        <% } %>
+            </div>
+            <div class="modal-footer">
+                <p class="cc__widget___product_modal_price">
+                    por <strong>
+                        <%= cc.package.price_display %>
+                    </strong>
+                </p>
+
+                <button type="button" class="btn-outline" data-bs-dismiss="modal">Fechar</button>
+
+                <% if (cc.package.inventory_amount===null || cc.package.inventory_amount> 0) { %>
+                    <% const current_cart_item=cc.cart.packages.find((package)=> package.meta.id === cc.package.id) %>
+                        <button type="button" id="<%= cc.package.id %>"
+                            class="btn-primary <%= current_cart_item ? 'goto-cart' : cc.package.variables.length ? 'choose-options' : 'add-cart' %>">
+                            <i class="me-2 fa-solid fa-basket-shopping"></i>
+                            <%= current_cart_item ? 'Ver carrinho' : 'Adicionar ao carrinho' %>
+                        </button>
+
+                        <% } else { %>
+                            <button class="btn-primary red">
+                                Sem estoque
+                            </button>
+                            <% } %>
+            </div>
+        </div>
+    </div>
+</div>

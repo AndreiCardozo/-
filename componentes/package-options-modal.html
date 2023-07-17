@@ -1,0 +1,48 @@
+<div class="modal fade" id="package-options-modal-<%= cc.package.id %>" tabindex="-1"
+    aria-labelledby="package_options_modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Opções de <%= cc.package.name %>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Fechar"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="cc__package___options">
+                    <% cc.package.variables.forEach((variable, index)=> { %>
+                        <div>
+                            <label for="<%= variable.name %>">
+                                <%= variable.description %>:
+                            </label>
+
+                            <% if (variable.type==='SELECT' ) { %>
+                                <select id="<%= variable.name %>">
+                                    <% variable.options.forEach((option, index)=> { %>
+                                        <option value="<%= option.id %>">
+                                            <%= option.name %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                                <% } else { %>
+                                    <input id="<%= variable.name %>"
+                                        type="<% variable.type === 'TEXT' ? 'text' : 'number' %>">
+                                    <% } %>
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button style="margin-top: 18px;" class="btn-outline" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+                <button id="<%= cc.package.id %>" style="margin-top: 18px;" class="btn-primary add-cart">
+                    <i class="me-2 fa-solid fa-basket-shopping"></i>
+                    Adicionar ao carrinho
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

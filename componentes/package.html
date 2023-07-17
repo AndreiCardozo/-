@@ -1,0 +1,47 @@
+<div class="cc__product___wrapper">
+    <% if (cc.package.image) { %>
+        <img src="<%= cc.package.image %>" width="165" />
+        <% } else { %>
+            <img src="<%= cc.cdn_url %>/public/no-picture.png" width="150px" />
+            <% } %>
+
+                <div class="cc__product___info">
+                    <h1 title="<%= cc.package.name %>">
+                        <%= cc.package.name %>
+                    </h1>
+                    <p class="package-price">
+                        <%= cc.package.price_display %>
+                            </h1>
+
+                            <div class="cc__product___action">
+                                <% if (cc.package.inventory_amount===null || cc.package.inventory_amount> 0) { %>
+
+                                    <% const current_cart_item=cc.cart.packages.find((package)=> package.meta.id ===
+                                        cc.package.id) %>
+                                        <button type="button" id="<%= cc.package.id %>"
+                                            class="btn-primary <%= current_cart_item ? 'goto-cart' : cc.package.variables.length ? 'choose-options' : 'add-cart' %>">
+                                            <i class="me-2 fa-solid fa-basket-shopping"></i>
+                                            <%= current_cart_item ? 'Ver carrinho' : 'Comprar' %>
+                                        </button>
+
+                                        <% } else { %>
+                                            <button class="btn-primary red">
+                                                Sem estoque
+                                            </button>
+                                            <% } %>
+
+                                                <button data-bs-toggle="modal"
+                                                    data-bs-target="#package-modal-<%= cc.package.id %>"
+                                                    class="btn-secondary">
+                                                    <i class="fa-regular fa-circle-question"
+                                                        style="font-size: 18px;"></i>
+                                                </button>
+                            </div>
+                </div>
+</div>
+
+<%~ include('components/package_modal', {...cc}) %>
+
+    <% if (cc.package.variables.length) { %>
+        <%~ include('components/package_options_modal', {...cc}) %>
+            <% } %>

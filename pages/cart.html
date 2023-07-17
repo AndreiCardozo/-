@@ -1,0 +1,245 @@
+<div class="cc__checkout___wrapper">
+    <div class="cc__checkout___header">
+        <h4>Carrinho</h4>
+    </div>
+
+    <div class="cc__checkout___products">
+        <table>
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Opções</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (cc.cart.packages.length===0) { %>
+                    <tr class="cc__checkout___no_products" style="display: table-row">
+                        <td colspan="5">
+                            <p>
+                                Nenhum produto foi adicionado ao carrinho.
+                            </p>
+                        </td>
+                    </tr>
+                    <% } %>
+
+                        <% cc.cart.packages.forEach((package, index)=> { %>
+                            <tr class="display">
+                                <td>
+                                    <%= package.meta.name %>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <% if (package.options.length) { %>
+                                            <button class="btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#cart-package-options-modal-<%= package.meta.id %>">
+                                                <i class="fa-solid fa-gear"></i>
+                                            </button>
+
+                                            <%~ include('components/cart_package_options_modal', {package: package}) %>
+                                                <% } %>
+                                    </ul>
+                                </td>
+                                <td class="cc__checkout___price">
+                                    <%= package.meta.price_display %>
+                                </td>
+                                <td>
+                                    <div class="cc__checkout___quantity_controller">
+                                        <button cc-package-id="<%= package.meta.id %>"
+                                            class="cc__checkout___decrease <%= package.meta.type !== 'MULTIPLE' && 'invisible' %>">
+                                            <i class="fa-solid fa-minus"></i>
+                                        </button>
+                                        <input cc-package-id="<%= package.meta.id %>" name="quantity" autocomplete="off"
+                                            class="cc__checkout___quantity_input" <%~ package.meta.type !=='MULTIPLE' &&
+                                            `readonly style="cursor: not-allowed" ` %> type="number" value="<%=
+                                            package.quantity %>">
+                                            <button cc-package-id="<%= package.meta.id %>"
+                                                class="cc__checkout___increase <%= package.meta.type !== 'MULTIPLE' && 'invisible' %>">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button cc-package-id="<%= package.meta.id %>" class="cc__checkout___remove">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <% }) %>
+            </tbody>
+        </table>
+
+        <div class="cc__checkout___footer">
+            <div class="cc__checkout___separator">
+                <h5>Concluir compra</h5>
+
+                <div class="cc__checkout___coupon_container">
+                    <div class="cc__checkout___coupon_form">
+                        <input autocomplete="off" class="coupon-input" placeholder="CUPOM"
+                            value="<%= cc.cart.discount?.coupon || '' %>">
+                        <button id="apply-coupon" class="btn-primary thin <%= cc.cart.discount?.coupon && 'red' %>">
+                            <%= cc.cart.discount?.coupon ? 'Remover' : 'Aplicar' %>
+                        </button>
+                    </div>
+                    <p class="coupon-error">Oops...</p>
+                </div>
+            </div>
+            <div class="cc__checkout___footer_finish">
+                <p>Total: <strong class="cc__checkout___total_price">
+                        <%= cc.cart.total_price_display %>
+                    </strong></p>
+                <button class="btn-primary green thin" data-bs-toggle="modal" data-bs-target="#checkout-modal">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Finalizar pedido
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Checkout modal -->
+<div class="modal fade cc__checkout___modal" id="checkout-modal" tabindex="-1" aria-labelledby="checkout-modal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkout-modal">Finalizar pedido</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="cc__checkout___modal_alert_container">
+                    <div class="cc__checkout___modal_alert">
+                        <div>
+                            <h5>Oops...</h5>
+                            <p>Ocorreu um erro.</p>
+                        </div>
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    </div>
+                </div>
+                <form>
+                    <% if (cc.cart.require_discord) { %>
+                        <div class="cc__checkout___form_field">
+                            <label for="discord">Discord</label>
+                            <button class="btn-primary discord">
+                                <i class="fa-brands fa-discord me-1"></i>
+                                Entrar com o Discord
+                            </button>
+
+                            <input id="discord" name="discord" type="hidden">
+                        </div>
+                        <% } %>
+
+                            <div class="cc__checkout___form_field">
+                                <label for="email">E-mail</label>
+                                <input id="email" name="email" placeholder="seuemail@gmail.com">
+                            </div>
+
+                            <div class="cc__checkout___form_field">
+                                <label for="id">Seu ID no servidor</label>
+                                <input id="id" name="id" placeholder="123">
+                            </div>
+
+                            <div class="cc__checkout___form_field">
+                                <label for="name">Nome completo</label>
+                                <input id="name" name="name" placeholder="Peter Parker">
+                            </div>
+
+                            <% if (cc.store.require_phone) { %>
+                                <div class="cc__checkout___form_field">
+                                    <label for="phone">WhatsApp</label>
+                                    <input id="phone" name="phone" value='+55'>
+                                    <span class="cc__checkout___help_text">+Cód. país + (DDD) + nº. Exemplo: +55 (15)
+                                        99264-7447</span>
+                                </div>
+                                <% } %>
+
+                                    <div class="cc__checkout___form_field <%= cc.store.require_document ? 'd-flex' : 'd-none' %>"
+                                        <%=cc.store.require_document ? 'data-required' : '' %>>
+                                        <label for="document">CPF</label>
+                                        <input id="document" name="document" placeholder="123.456.789-09">
+                                    </div>
+
+                                    <div class="cc__checkout___form_field">
+                                        <label>Forma de pagamento</label>
+                                        <div class="cc__checkout___gateways">
+                                            <% cc.gateways.forEach((gateway, index)=> { %>
+                                                <button type="button" value="<%= gateway.gateway %>">
+                                                    <%= gateway.display %>
+                                                </button>
+                                                <% }) %>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="cc__checkout___form_field checkbox">
+                                        <input name="terms" type="checkbox" id="terms" />
+                                        <label for="terms">Eu aceito os
+                                            <a id="terms-form" data-bs-toggle="modal"
+                                                data-bs-target="#terms-modal">Termos de Pagamento
+                                            </a>
+                                        </label>
+
+                                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="checkout" type="button" class="btn-primary green thin">
+                    Comprar (<%= cc.cart.total_price_display %>)
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PIX modal -->
+<div class="modal fade cc__checkout___pix_modal" id="pix-modal" tabindex="-1" aria-labelledby="pix-modal"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pix-modal">Você está quase lá!</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <h3 class="mb-3">Escaneie o QR CODE abaixo:</h3>
+                <img class="mb-3" width="200" height="200" src="data:image/jpeg;base64,placeholder">
+                <h4 class="mb-2">ou</h4>
+                <button class="btn-primary">
+                    <span>Clique aqui para copiar</span>
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+            </div>
+            <div class="modal-footer" data-bs-dismiss="modal">
+                <button type="button" class="btn-primary">Pronto!</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PIX modal -->
+
+<!-- Terms modal -->
+<div class="modal fade cc__checkout___terms_modal" id="terms-modal" tabindex="-1" aria-labelledby="terms-modal"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="terms-modal">Leia os termos</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+
+                <%~ cc.theme.terms_content || '' %>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#checkout-modal">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Terms modal -->

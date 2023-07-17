@@ -1,0 +1,282 @@
+.cc__index___grid {
+    display: grid;
+    //333.717
+    grid-template-columns: 0.45fr 1fr;
+    gap: 32px;
+
+    .cc__index___sidebar {
+
+        .cc__index___sidebar__navigation {
+            box-shadow: 1px 5px 22px -2px rgba(0, 0, 0, 0.45);
+            border-radius: 8px;
+            background-color: #1c212c;
+            overflow: hidden;
+
+            li {
+                display: flex;
+                align-items: center;
+                position: relative;
+
+                border-bottom: 1px #252c38 solid;
+
+                &.active {
+                    background-color: #10131a
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                a {
+                    padding: 24px;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+
+                    text-transform: uppercase;
+                    font-size: 18px;
+                    font-weight: 700;
+
+                    .fa-house,
+                    .fa-bars {
+                        color: $primary_color;
+                        margin-right: 8px;
+                    }
+
+                    .fa-caret-right {
+                        color: #5b5b5b;
+                        margin-left: auto;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .cc__index___content {
+        min-height: 100vh;
+
+        .cc__index___content__panel {
+            box-shadow: 1px 5px 22px -2px rgba(0, 0, 0, 0.45);
+            ;
+            border-radius: 8px;
+            background-color: #1c212c;
+            overflow: hidden;
+
+            .cc__index___custom_content {
+                padding: 24px;
+                font-family: 'Poppins', sans-serif;
+                list-style: inside !important;
+            }
+
+            .cc__index___posts {
+                padding: 24px;
+
+                .cc__index___posts__post {
+                    margin-top: 64px;
+
+                    p,
+                    h1 {
+                        color: #c3cbdd;
+                    }
+
+                    &:first-child {
+                        margin-top: 0px;
+                    }
+
+                    .cc__index___posts__post_header {
+                        display: flex;
+                        align-items: center;
+                        margin: 24px;
+
+                        .cc__post_subtitle {
+                            font-weight: 600;
+                        }
+
+                        .cc__post_title {
+                            color: white;
+                        }
+
+                        .cc__post_info {
+                            text-align: end;
+                            padding: 8px;
+                            border-radius: 8px;
+                            background-color: $primary_color;
+                            margin-left: auto;
+                            font-family: 'Poppins', sans-serif;
+                            font-weight: 500;
+
+                            p {
+                                color: white;
+                            }
+                        }
+                    }
+
+                    .cc__post_container {
+                        margin-top: 8px;
+                        padding: 24px;
+                        margin: 24px;
+                        border-radius: 8px;
+                        background-color: #10131a;
+                        height: 300px;
+                        position: relative;
+                        overflow: hidden;
+                        margin-right: 24px;
+                        margin-left: 24px;
+
+                        .cc__post_footer {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+
+                            background: linear-gradient(0deg, rgba(16, 19, 26, 1) 30%, rgba(255, 255, 255, 0) 100%);
+                            width: 100%;
+                            height: 70px;
+
+                            .cc__post_footer__read_more {
+                                padding: 8px;
+                                border-radius: 5px;
+                                background-color: $primary_color;
+                                font-weight: bold;
+
+                                &:hover {
+                                    color: #10131a;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .cc__index___posts_paginator {
+                padding: 24px 48px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                * {
+                    border-radius: 5px;
+                    background-color: $primary_color;
+                    height: 32px;
+                    width: 32px;
+                    line-height: 32px;
+                    text-align: center;
+
+                    &.disabled {
+                        cursor: not-allowed;
+                    }
+
+                    &:hover {
+                        color: #10131a;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 785px) {
+    .cc__index___grid {
+        grid-template-columns: 0.7fr 1fr;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .cc__index___grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cc__index___widgets {
+        order: -1;
+    }
+}
+
+.btn-primary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: $primary_color;
+    color: white;
+    transition-duration: 0.2s;
+    font-family: 'Poppins', sans-serif;
+
+    &:hover {
+        background-color: darken($primary_color, 5);
+    }
+
+    &.thin {
+        padding: 6px 12px;
+    }
+
+    &.red {
+        background-color: red;
+
+        &:hover {
+            background-color: darken(red, 20);
+        }
+    }
+
+    &.green {
+        background-color: #0c9b0c;
+
+        &:hover {
+            background-color: darken(#0c9b0c, 10);
+        }
+    }
+
+    &.discord {
+        background-color: #5865f2;
+
+        &:hover {
+            background-color: darken(#5865f2, 5);
+        }
+    }
+}
+
+.btn-secondary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: fade-out($primary_color, 0.8);
+    color: $primary_color;
+    transition-duration: 0.2s;
+    font-family: 'Poppins', sans-serif;
+
+    &:hover {
+        background-color: fade-out($primary_color, 0.7);
+    }
+}
+
+.btn-outline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: $primary_color;
+    transition-duration: 0.2s;
+    font-family: 'Poppins', sans-serif;
+    border: solid 1px $primary_color;
+
+    &:hover {
+        background-color: fade-out($primary_color, 0.9);
+    }
+}

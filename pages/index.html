@@ -1,0 +1,74 @@
+<div>
+    <% if (cc.theme.index_content===null && !cc.posts.data.length) { %>
+        <div style="padding: 48px;"></div>
+        <% } %>
+
+            <% if (cc.theme.index_content) { %>
+                <div class="cc__index___custom_content CentralDraft">
+                    <%~ cc.theme.index_content %>
+                </div>
+                <% } %>
+
+                    <% if (cc.posts.data.length) { %>
+                        <div class="cc__index___posts">
+                            <% cc.posts.data.forEach((post, index)=> { %>
+                                <div class="cc__index___posts__post">
+                                    <div class="cc__index___posts__post_header">
+                                        <div>
+                                            <p class="cc__post_subtitle">DESTAQUE</p>
+                                            <h1 class="cc__post_title">
+                                                <%= post.title %>
+                                            </h1>
+                                            <p style="font-family: 'Poppins';">
+                                                <%= post.published_at%>
+                                            </p>
+                                        </div>
+                                        <div class="cc__post_info">
+                                            <p>Postado por: <%= post.author %>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="cc__post_container">
+                                        <%~ post.brief %>
+
+                                            <div class="cc__post_footer">
+                                                <a class="cc__post_footer__read_more" href="<%= post.path %>">
+                                                    LER MAIS
+                                                </a>
+                                            </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <% } %>
+
+                            <% if (cc.posts.data.length) { %>
+                                <div class="cc__index___posts_paginator">
+                                    <% if (cc.posts.meta.previous_page_url !==null) { %>
+                                        <a href="<%= cc.dist_url %><%= cc.posts.meta.previous_page_url %>">
+                                            <i class="fa-solid fa-chevron-left"></i>
+                                        </a>
+                                        <% } else { %>
+                                            <a class="disabled">
+                                                <i class="fa-solid fa-chevron-left"></i>
+                                            </a>
+                                            <% } %>
+
+                                                <a href="">
+                                                    <%= cc.posts.meta.current_page %>
+                                                </a>
+
+                                                <% if (cc.posts.meta.next_page_url !==null) { %>
+                                                    <a href="<%= cc.dist_url %><%= cc.posts.meta.next_page_url %>">
+                                                        <i class="fa-solid fa-chevron-right"></i>
+                                                    </a>
+                                                    <% } else { %>
+                                                        <a class="disabled">
+                                                            <i class="fa-solid fa-chevron-right"></i>
+                                                        </a>
+                                                        <% } %>
+                                </div>
+                                <% } %>
+
+</div>

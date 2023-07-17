@@ -1,0 +1,154 @@
+$bg-color: #151923;
+$bg-color-darker: #12161e;
+
+html {
+    scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    outline: none;
+    box-shadow: none;
+}
+
+ul[class],
+ol[class],
+ul,
+ol {
+    padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+        color: $primary_color;
+    }
+}
+
+body {
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    font-family: 'Roboto Condensed', sans-serif;
+    text-decoration: none;
+}
+
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    border: none;
+    padding: 0;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+h2,
+h3,
+h4,
+h5 {
+    font-weight: 600;
+}
+
+body {
+    background-color: $bg-color;
+}
+
+select,
+input {
+    background: #151924;
+    border: solid 1px #272d3a;
+    border-radius: 5px;
+    height: 40px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    transition-duration: 0.3s;
+
+    &:focus {
+        border-color: $primary_color;
+    }
+}
+
+input[type=number] {
+    appearance: textfield;
+}
+
+.container {
+    max-width: 1340px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.modal-content {
+    border-radius: 8px;
+    background-color: #1c212c;
+}
+
+.modal-header {
+    border-color: #232830;
+}
+
+.modal-footer {
+    border-color: #232830;
+}
+
+.toastify {
+    box-shadow: none;
+
+    max-width: 520px;
+    width: fit-content;
+    font-family: 'Poppins', sans-serif;
+    background: mix($primary_color, black, 20);
+    border: 1px solid $primary_color;
+
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+
+    &.error {
+        background-color: mix(red, black, 20);
+        border: 1px solid red;
+    }
+}

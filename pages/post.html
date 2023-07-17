@@ -1,0 +1,23 @@
+<div class="cc__post___wrapper">
+    <div class="cc__post_header___wrapper" style="<%= cc.post.image && '--bg-img: url(' + cc.post.image + ')' %>">
+        <div class="cc__post_header">
+            <div>
+                <p class="cc__post_subtitle">DESTAQUE</p>
+                <h1 class="cc__post_title">
+                    <%= cc.post.title %>
+                </h1>
+                <p style="font-family: 'Poppins';">
+                    <%= cc.post.published_at %>
+                </p>
+            </div>
+            <div class="cc__post_info">
+                <p>Postado por: <%= cc.post.author %>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cc__post_container ck-content">
+        <%~ cc.post.content %>
+    </div>
+</div>
